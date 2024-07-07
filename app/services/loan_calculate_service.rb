@@ -10,7 +10,8 @@ class LoanCalculateService
     interest_expense = calculate_interest_expense(loan_amount, @house_loan.loan_term)
     profit = (@house_loan.after_repair_value - loan_amount - interest_expense).round(2)
     pdf = generate_pdf(@house_loan, loan_amount, profit)
-    HouseLoanMailer.with(house_loan: @house_loan, pdf: pdf).termsheet_email.deliver_later
+    encoded_pdf = Base64.encode64(pdf)
+    TermsheetEmailSendWorker.perform_async(@house_loan.id, encoded_pdf)
   end
 
   private
