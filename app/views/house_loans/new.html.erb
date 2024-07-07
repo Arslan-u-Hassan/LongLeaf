@@ -1,0 +1,62 @@
+<div class="space-y-6">
+  <h1 class="text-3xl font-bold underline">
+    Loan Calculation Form
+  </h1>
+
+  <%= form_with(model: @house_loan, local: true, class: "space-y-6") do |form| %>
+    <% if @house_loan.errors.any? %>
+      <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <strong class="font-bold"><%= pluralize(@house_loan.errors.count, "error") %> prohibited this house loan from being saved:</strong>
+        <ul class="list-disc pl-5">
+          <% @house_loan.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :address, class: "text-gray-700 font-semibold" %>
+      <%= form.text_field :address, required: true, class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :loan_term, class: "text-gray-700 font-semibold" %>
+      <%= form.number_field :loan_term, required: true, min: 1, max: 12, oninput: "this.value=this.value.replace(/[^0-9]/g,'');", class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :purchase_price, class: "text-gray-700 font-semibold" %>
+      <%= form.number_field :purchase_price, required: true, min: 0, step: 1, oninput: "this.value=this.value.replace(/[^0-9]/g,'');", class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :repair_budget, class: "text-gray-700 font-semibold" %>
+      <%= form.number_field :repair_budget, required: true, min: 0, step: 1, oninput: "this.value=this.value.replace(/[^0-9]/g,'');", class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :after_repair_value, class: "text-gray-700 font-semibold" %>
+      <%= form.number_field :after_repair_value, required: true, min: 0, step: 1, oninput: "this.value=this.value.replace(/[^0-9]/g,'');", class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :name, class: "text-gray-700 font-semibold" %>
+      <%= form.text_field :name, required: true, class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :email, class: "text-gray-700 font-semibold" %>
+      <%= form.email_field :email, required: true, class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <%= form.label :phone, class: "text-gray-700 font-semibold" %>
+      <%= form.telephone_field :phone, required: true, class: "border-b-2 border-gray-300 focus:border-gray-500 focus:outline-none px-2 py-1 text-gray-600 placeholder-gray-500" %>
+    </div>
+
+    <div>
+      <%= form.submit 'Calculate', class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>
